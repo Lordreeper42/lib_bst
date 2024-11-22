@@ -4,35 +4,16 @@
 using namespace std;
 
 int main(){
-    Node * root = new Node(49);
-    root = insert_recursive(root, 55);
-    root = insert_recursive(root, 15);
-    root = insert_recursive(root, 54);
-    root = insert_recursive(root, 22);
-    root = insert_recursive(root, 78);
-    root = insert_recursive(root, 103);
-    root = insert_recursive(root, 69);
-    insert_iteractive(root, 55);
-    insert_iteractive(root, 54);
-    insert_iteractive(root, 23);
-    insert_iteractive(root, 911);
-    insert_iteractive(root, 6);
-    search_iteractive(root, 55);
-    delete_iteractive(root, 911);
-    cout << endl << "PREORDER: ";
-    preOrder(root);
+    Node root {49};
+    root.insert_iteractive(55);
+    root.insert_iteractive(54);
+    root.insert_iteractive(23);
+    root.insert_iteractive(911);
+    root.insert_iteractive(6);
+   
     cout << endl<< "INORDER: ";
-    inOrder(root);
-    cout << endl<< "POSTORDER: ";
-    postOrder(root);
-    cout << endl;
-    cout  << "HEIGHT: " << height(root) << endl;
-    if (isBST(root)== true){
-        cout << "is bst";
-    }
-    else {
-        cout << "not un bst";
-    }
+    root.inOrder();
+ 
 
 
     return 0;

@@ -2,57 +2,20 @@
 #include <vector>
 using namespace std;
 
-struct Node{
+class Node{
+    private:
     int data;
+    int weight;
     Node * l_child;
     Node * r_child;
+    public:
     Node (int value){
         data = value;
         l_child = nullptr;
         r_child = nullptr;
     }
-};
-
-void preOrder(Node* node) {
-    if (node == nullptr) return;
-    cout << node->data << " ";
-    preOrder(node->l_child);
-    preOrder(node->r_child);
-}
-
-void inOrder(Node* node) {
-    if (node == nullptr) return; 
-    inOrder(node->l_child);
-    cout << node->data << " ";
-    inOrder(node->r_child);
-}
-
-void postOrder(Node* node) {
-    if (node == nullptr) return;
-    postOrder(node->l_child);
-    postOrder(node->r_child);
-    cout << node->data << " ";
-}
-
-Node* insert_recursive (Node* branch, int N){
-    if (branch == NULL){
-        return new  Node(N);
-    }
-    if (branch->data == N){
-        cout << "Value |" << N <<  "| already exists in the tree" << endl;
-        return branch;
-    }
-    if (branch->data  > N){
-        branch->l_child = insert_recursive (branch->l_child, N);
-    }
-    else {
-        branch->r_child = insert_recursive (branch->r_child, N);
-    }
-    return branch;
-}
-
-void insert_iteractive(Node *root, int value){
-    Node * current = root ;
+    void insert_iteractive(int value){
+    Node * current = this;
     Node * father = nullptr;
     while  (current != nullptr){
         if  (value < current->data){
@@ -72,9 +35,52 @@ void insert_iteractive(Node *root, int value){
         else  {
             cout << "Value |" << value <<  "| already exists in the tree" << endl;
             current =  nullptr;
+            }
         }
     }
+    void preOrder() {
+        if (this == nullptr) return;
+        cout << this->data << " ";
+        l_child->preOrder();
+        r_child->preOrder();
+    }
+
+    void inOrder() {
+        if (this == nullptr) return; 
+        l_child->inOrder();
+        cout << this->data << " ";
+        r_child->inOrder();
+    }
+
+    void postOrder() {
+        if (this == nullptr) return;
+        l_child->postOrder();
+        r_child->postOrder();
+        cout << this->data << " ";
+    }
+};
+
+
+
+
+/*
+Node* insert_recursive (Node* branch, int N){
+    if (branch == NULL){
+        return new  Node(N);
+    }
+    if (branch->data == N){
+        cout << "Value |" << N <<  "| already exists in the tree" << endl;
+        return branch;
+    }
+    if (branch->data  > N){
+        branch->l_child = insert_recursive (branch->l_child, N);
+    }
+    else {
+        branch->r_child = insert_recursive (branch->r_child, N);
+    }
+    return branch;
 }
+
 
 Node* search_recursive (Node* branch, int N){
     if (branch == NULL){
@@ -184,6 +190,7 @@ int height(Node  *root){
     }
 }
 
+
 void order_for_BST(Node *root, vector <int> &BST_controller) {
          if (root == nullptr) return; 
          order_for_BST(root->l_child, BST_controller);
@@ -204,3 +211,5 @@ bool isBST (Node *root){
     }
     return check;
 }
+
+*/
