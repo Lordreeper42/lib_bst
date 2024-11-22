@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include "BST_library_DaRos.h"
 using namespace std;
 
@@ -26,6 +27,12 @@ int main(){
     postOrder(root);
     cout << endl;
     cout  << "HEIGHT: " << height(root) << endl;
+    if (isBST(root)== true){
+        cout << "is bst";
+    }
+    else {
+        cout << "not un bst";
+    }
 
 
     return 0;

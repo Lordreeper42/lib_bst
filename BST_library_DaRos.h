@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
 struct Node{
@@ -183,3 +184,23 @@ int height(Node  *root){
     }
 }
 
+void order_for_BST(Node *root, vector <int> &BST_controller) {
+         if (root == nullptr) return; 
+         order_for_BST(root->l_child, BST_controller);
+         BST_controller.push_back(root->data);
+         order_for_BST(root->r_child, BST_controller);
+    }
+
+bool isBST (Node *root){
+    vector <int> BST_controller;
+    bool check(true);
+    order_for_BST(root, BST_controller);
+    int temp{0};
+    for (int i{1}; i< BST_controller.size(); i++){
+        if (BST_controller[temp]>BST_controller[i]){
+            check = false;
+        }
+        temp++;
+    }
+    return check;
+}
