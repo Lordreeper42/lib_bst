@@ -14,26 +14,26 @@ class Node{
         l_child = nullptr;
         r_child = nullptr;
     }
-    void insert_iteractive(int value){
+    void insertI(int k){
     Node * current = this;
     Node * father = nullptr;
     while  (current != nullptr){
-        if  (value < current->data){
+        if  (k < current->data){
             father =  current;
             current = current->l_child;
             if(current ==  nullptr){
-                father->l_child = new Node(value);
+                father->l_child = new Node(k);
             }
         }
-        else if  (value > current->data){
+        else if  (k > current->data){
             father = current;
             current =  current->r_child;
             if(current ==  nullptr){
-                father->r_child = new Node(value);
+                father->r_child = new Node(k);
             }
         }
         else  {
-            cout << "Value |" << value <<  "| already exists in the tree" << endl;
+            cout << "Value |" << k <<  "| already exists in the tree" << endl;
             current =  nullptr;
             }
         }
@@ -58,123 +58,114 @@ class Node{
         r_child->postOrder();
         cout << this->data << " ";
     }
-};
 
 
+    Node* insert_R (int k){
+        if (this == NULL){
+            return new  Node(k);
+        }
+        if (this->data == k){
+            cout << "Value |" << k <<  "| already exists in the tree" << endl;
+            return this;
+        }
+        if (this->data  > k){
+            this->l_child->insert_R(k);
+        }
+        else {
+            this->r_child->insert_R(k);;
+        }
+        return this;
+    }
 
+
+    bool searchR (int k){
+        if (this == NULL){
+            cout  << "Value |" << k <<  "| NOT found in the tree" << endl;
+            return  false;
+        }
+        if (this->data == k){
+            cout << "Value |" << this->data <<  "| found at "<<  this << endl;
+            return true;
+        }
+        if (this->data  > k){
+            this->l_child->insert_R(k);
+        }
+        else {
+            this->r_child->insert_R(k);;
+        }
+        return this;
+    }
+
+    bool searchI(int k){
+        Node * current = this ;
+        Node * father = nullptr;
+        while  (current != nullptr){
+            if  (k < current->data){
+                father =  current;
+                current = current->l_child;
+                if(current ==  nullptr){
+                    return false;
+                }
+            }
+            else if  (k > current->data){
+                father = current;
+                current =  current->r_child;
+                if(current ==  nullptr){
+                    return false;
+                }
+            }
+            else  {
+                return true;
+
+                current =  nullptr;
+            }
+        }
+    }
+
+    Node* deleteNode (int k){
+        if (this == NULL){
+            cout  << "Value |" << k <<  "| couldn't be deleted, NOT found in the tree" << endl;
+            return  nullptr;
+        }
+        if (this->data == k){
+            cout << "Value |" << k <<  "| has been deleted from "<<  this << endl;
+            delete this;
+            return nullptr;
+        }
+        if (this->data  > k){
+            this->l_child->deleteNode (k);
+        }
+        else {
+            this->r_child->deleteNode (k);
+        }
+        return this;
+    }
 
 /*
-Node* insert_recursive (Node* branch, int N){
-    if (branch == NULL){
-        return new  Node(N);
-    }
-    if (branch->data == N){
-        cout << "Value |" << N <<  "| already exists in the tree" << endl;
-        return branch;
-    }
-    if (branch->data  > N){
-        branch->l_child = insert_recursive (branch->l_child, N);
-    }
-    else {
-        branch->r_child = insert_recursive (branch->r_child, N);
-    }
-    return branch;
-}
-
-
-Node* search_recursive (Node* branch, int N){
-    if (branch == NULL){
-        cout  << "Value |" << N <<  "| NOT found in the tree" << endl;
-        return  nullptr;
-    }
-    if (branch->data == N){
-        cout << "Value |" << branch->data <<  "| found at "<<  branch << endl;
-
-        return branch;
-    }
-    if (branch->data  > N){
-        branch->l_child = search_recursive (branch->l_child, N);
-    }
-    else {
-        branch->r_child = search_recursive (branch->r_child, N);
-    }
-    return branch;
-}
-
-void search_iteractive(Node *root, int value){
-    Node * current = root ;
-    Node * father = nullptr;
-    while  (current != nullptr){
-        if  (value < current->data){
-            father =  current;
-            current = current->l_child;
-            if(current ==  nullptr){
-                cout  << "Value |" << current->data <<  "| NOT found in the tree" << endl;
+    void delete_iteractive(Node *root, int value){
+        Node * current = root ;
+        Node * father = nullptr;
+        while  (current != nullptr){
+            if  (value < current->data){
+                father =  current;
+                current = current->l_child;
+                if(current ==  nullptr){
+                    cout  << "Value |" << current->data <<  "| couldn't be deleted, NOT found in the tree" << endl;
+                }
+            }
+            else if  (value > current->data){
+                father = current;
+                current =  current->r_child;
+                if(current ==  nullptr){
+                    cout  << "Value |" << current->data <<  "| couldn't be deleted, NOT found in the tree" << endl;
+                }
+            }
+            else  {
+                cout << "Value |" << current->data <<  "| has been deleted " << endl;
+                current =  nullptr;
             }
         }
-        else if  (value > current->data){
-            father = current;
-            current =  current->r_child;
-            if(current ==  nullptr){
-                cout  << "Value |" << current->data <<  "| NOT found in the tree" << endl;
-            }
-        }
-        else  {
-            cout << "Value |" << current->data <<  "| found at "<< current << endl;
-
-            current =  nullptr;
-        }
     }
-}
-
-Node* delete_recursive (Node* branch, int N){
-    if (branch == NULL){
-        cout  << "Value |" << N <<  "| couldn't be deleted, NOT found in the tree" << endl;
-        return  nullptr;
-    }
-    if (branch->data == N){
-        if (branch->l_child == nullptr && branch->r_child == nullptr){
-        branch =  nullptr;
-        cout << "Value |" << branch->data <<  "| has been deleted " << endl;
-        return branch;
-        }
-        else if (branch->r_child == nullptr){
-            branch = branch->l_child;
-        }
-    }
-    if (branch->data  > N){
-        branch->l_child = delete_recursive (branch->l_child, N);
-    }
-    else {
-        branch->r_child = delete_recursive (branch->r_child, N);
-    }
-    return branch;
-}
-
-void delete_iteractive(Node *root, int value){
-    Node * current = root ;
-    Node * father = nullptr;
-    while  (current != nullptr){
-        if  (value < current->data){
-            father =  current;
-            current = current->l_child;
-            if(current ==  nullptr){
-                cout  << "Value |" << current->data <<  "| couldn't be deleted, NOT found in the tree" << endl;
-            }
-        }
-        else if  (value > current->data){
-            father = current;
-            current =  current->r_child;
-            if(current ==  nullptr){
-                cout  << "Value |" << current->data <<  "| couldn't be deleted, NOT found in the tree" << endl;
-            }
-        }
-        else  {
-            cout << "Value |" << current->data <<  "| has been deleted " << endl;
-            current =  nullptr;
-        }
-    }
-}
 
 int height(Node  *root){
     if(root ==  nullptr){
@@ -190,18 +181,19 @@ int height(Node  *root){
     }
 }
 
+*/
 
-void order_for_BST(Node *root, vector <int> &BST_controller) {
-         if (root == nullptr) return; 
-         order_for_BST(root->l_child, BST_controller);
-         BST_controller.push_back(root->data);
-         order_for_BST(root->r_child, BST_controller);
+void order_for_BST(vector <int> &BST_controller) {
+        if (this == nullptr) return; 
+        l_child->order_for_BST(BST_controller);
+        cout << this->data << " ";
+        r_child->order_for_BST(BST_controller);
     }
 
-bool isBST (Node *root){
+bool isBst (){
     vector <int> BST_controller;
     bool check(true);
-    order_for_BST(root, BST_controller);
+    this->order_for_BST(BST_controller);
     int temp{0};
     for (int i{1}; i< BST_controller.size(); i++){
         if (BST_controller[temp]>BST_controller[i]){
@@ -212,4 +204,4 @@ bool isBST (Node *root){
     return check;
 }
 
-*/
+};
