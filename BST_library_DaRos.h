@@ -9,7 +9,7 @@ class Node{
     Node * l_child;
     Node * r_child;
     public:
-    Node (int value){
+    Node (int value = 0){
         data = value;
         l_child = nullptr;
         r_child = nullptr;
@@ -121,7 +121,7 @@ class Node{
             }
         }
     }
-
+/*
     Node* deleteNode (int k){
         if (this == NULL){
             cout  << "Value |" << k <<  "| couldn't be deleted, NOT found in the tree" << endl;
@@ -141,7 +141,7 @@ class Node{
         return this;
     }
 
-/*
+
     void delete_iteractive(Node *root, int value){
         Node * current = root ;
         Node * father = nullptr;
@@ -203,5 +203,32 @@ bool isBst (){
     }
     return check;
 }
+friend ostream &operator<<(ostream &os,  Node &n);
+friend istream &operator>>(istream &is,  Node &n);
 
 };
+
+ostream &operator<<(ostream &os,  Node &n){
+    os << "\ndata: " << n.data;
+    if(n.l_child == nullptr){
+        os << "\nl_child: NULL";
+    }
+    else{
+        os << "\nl_child: " << n.l_child->data;
+    }
+    if(n.r_child == nullptr){
+        os << "\nr_child: NULL";
+    }
+    else{
+        os << "\nr_child: " << n.r_child->data;
+    }
+    
+    os << endl;
+    return os;
+}
+istream &operator>>(istream &is,  Node &n){
+    is >> n.data;
+    n.r_child = nullptr;
+    n.l_child = nullptr;
+    return is;
+}

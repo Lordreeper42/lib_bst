@@ -4,7 +4,9 @@
 using namespace std;
 
 int main(){
-    Node root {49};
+    Node root;
+    cin >> root;
+    cout << root;
     root.insertI(55);
     root.insertI(54);
     root.insertI(23);
@@ -59,11 +61,10 @@ int main(){
     }
 
 
-    root.deleteNode(911);
-    root.deleteNode(333);
-
     cout << endl<< "INORDER: ";
     root.inOrder();
+
+    cout << root;
 
 
 
