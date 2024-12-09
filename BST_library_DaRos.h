@@ -121,7 +121,7 @@ class Node{
             }
         }
     }
-/*
+
     Node* deleteNode (int k){
         if (this == NULL){
             cout  << "Value |" << k <<  "| couldn't be deleted, NOT found in the tree" << endl;
@@ -141,7 +141,7 @@ class Node{
         return this;
     }
 
-
+    /*
     void delete_iteractive(Node *root, int value){
         Node * current = root ;
         Node * father = nullptr;
