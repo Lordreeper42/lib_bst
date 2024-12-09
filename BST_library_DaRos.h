@@ -96,31 +96,24 @@ class Node{
         return this;
     }
 
-    bool searchI(int k){
-        Node * current = this ;
-        Node * father = nullptr;
-        while  (current != nullptr){
-            if  (k < current->data){
-                father =  current;
-                current = current->l_child;
-                if(current ==  nullptr){
-                    return false;
-                }
-            }
-            else if  (k > current->data){
-                father = current;
-                current =  current->r_child;
-                if(current ==  nullptr){
-                    return false;
-                }
-            }
-            else  {
-                return true;
+    bool searchI(int k) {
+    Node* current = this;
+    Node* father = nullptr;
 
-                current =  nullptr;
-            }
+    while (current != nullptr) {
+        if (k < current->data) {
+            father = current;
+            current = current->l_child;
+        } else if (k > current->data) {
+            father = current;
+            current = current->r_child;
+        } else {
+            current = nullptr; 
+            return true;
         }
     }
+    return false;
+}
 
     Node* deleteNode (int k){
         if (this == NULL){
@@ -142,30 +135,6 @@ class Node{
     }
 
 /*
-    void delete_iteractive(Node *root, int value){
-        Node * current = root ;
-        Node * father = nullptr;
-        while  (current != nullptr){
-            if  (value < current->data){
-                father =  current;
-                current = current->l_child;
-                if(current ==  nullptr){
-                    cout  << "Value |" << current->data <<  "| couldn't be deleted, NOT found in the tree" << endl;
-                }
-            }
-            else if  (value > current->data){
-                father = current;
-                current =  current->r_child;
-                if(current ==  nullptr){
-                    cout  << "Value |" << current->data <<  "| couldn't be deleted, NOT found in the tree" << endl;
-                }
-            }
-            else  {
-                cout << "Value |" << current->data <<  "| has been deleted " << endl;
-                current =  nullptr;
-            }
-        }
-    }
 
 int height(Node  *root){
     if(root ==  nullptr){
